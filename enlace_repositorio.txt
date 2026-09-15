@@ -1,0 +1,15 @@
+GA7-220501096-AA4-EV03 - Componente front-end con framework (React)
+
+Estudiante: Pedro Alba Mendez
+Ficha: 3235890
+Programa: Analisis y Desarrollo de Software (ADSO) - SENA
+
+Enlace del repositorio:
+https://github.com/pedroalbadev-art/ARKHE-modulos-evidencias
+
+Nota: este repositorio es independiente del repositorio del software real
+del proyecto (ARKHE-software). Se usa exclusivamente para modulos de
+evidencia que requieren una tecnologia distinta al stack oficial de ARKHE
+(Python + Flask + MySQL), segun lo acordado con el instructor. El modulo
+correspondiente a esta evidencia (GA7-220501096-AA4-EV03) se encuentra en
+la carpeta apartamentos-react/, construido en React (Vite).
