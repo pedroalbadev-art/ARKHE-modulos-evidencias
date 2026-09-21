@@ -1,0 +1,19 @@
+{
+  "name": "auth-api-node",
+  "version": "1.0.0",
+  "description": "Servicio web de registro e inicio de sesion - Evidencia GA7-220501096-AA5-EV01 (ADSO - SENA)",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "author": "Pedro Alba Mendez",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

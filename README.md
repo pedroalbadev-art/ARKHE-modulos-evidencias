@@ -9,10 +9,15 @@ El repositorio del software real es `ARKHE-software` (carpeta hermana en el Escr
 
 Cada evidencia tiene su propia subcarpeta:
 
-- `AA4-EV03-apartamentos-react/` — GA7-220501096-AA4-EV03 (componente front-end con
+- `apartamentos-react/` — GA7-220501096-AA4-EV03 (componente front-end con
   framework). Módulo Apartamentos construido en React (con Vite) como ejercicio de
   front-end puro, con datos de prueba, replicando el diseño de
   `arkhe_apartamentos_modulo.html`. No se conecta a la base de datos real de ARKHE.
+- `auth-api-node/` — GA7-220501096-AA5-EV01 (registro e inicio de sesión).
+  Servicio web construido con Node.js y Express, con dos endpoints
+  (`/api/registro` y `/api/login`), contraseñas cifradas con bcrypt y
+  persistencia simple en un archivo JSON (`data/usuarios.json`), sin conexión
+  a la base de datos real de ARKHE.
 
 Política acordada con el instructor (reunión 2026-09-14): el software ARKHE se
 mantiene siempre en el lenguaje/stack elegido por el equipo; cuando una evidencia
