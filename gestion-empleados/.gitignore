@@ -1,0 +1,6 @@
+# Dependencias: se regeneran con "npm install", nunca se suben
+node_modules/
+
+# Variables de entorno y registros
+.env
+*.log
