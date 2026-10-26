@@ -1,5 +1,6 @@
 GA7-220501096-AA4-EV03 - Componente front-end con framework (React)
 GA7-220501096-AA5-EV01 - Registro e inicio de sesion (Node.js + Express)
+GA8-220501096-AA1-EV01 - Desarrollar software a partir de la integracion de sus modulos componentes (MEAN)
 
 Estudiante: Pedro Alba Mendez
 Ficha: 3235890
@@ -19,3 +20,7 @@ evidencia que requieren una tecnologia distinta al stack oficial de ARKHE
   carpeta auth-api-node/, construido en Node.js y Express (registro e
   inicio de sesion, con contrasenas cifradas con bcrypt y persistencia
   simple en un archivo JSON).
+- El modulo de la evidencia GA8-220501096-AA1-EV01 se encuentra en la
+  carpeta gestion-empleados/, construido con el stack MEAN (MongoDB,
+  Express, Angular y Node.js): API REST, front-end en Angular con
+  Materialize y pruebas unitarias con Jest y Vitest.

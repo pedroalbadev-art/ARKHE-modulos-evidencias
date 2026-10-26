@@ -18,6 +18,13 @@ Cada evidencia tiene su propia subcarpeta:
   (`/api/registro` y `/api/login`), contraseñas cifradas con bcrypt y
   persistencia simple en un archivo JSON (`data/usuarios.json`), sin conexión
   a la base de datos real de ARKHE.
+- `gestion-empleados/` — GA8-220501096-AA1-EV01 (desarrollar software a partir
+  de la integración de sus módulos componentes). Aplicación web completa con el
+  stack MEAN (MongoDB, Express, Angular y Node.js), construida siguiendo el
+  ejemplo de registro de empleados del componente formativo. Incluye API REST,
+  front-end en Angular con Materialize, pruebas unitarias (Jest y Vitest) y su
+  propio `README.md` con las instrucciones de ejecución. No se conecta a la base
+  de datos real de ARKHE.
 
 Política acordada con el instructor (reunión 2026-09-14): el software ARKHE se
 mantiene siempre en el lenguaje/stack elegido por el equipo; cuando una evidencia
