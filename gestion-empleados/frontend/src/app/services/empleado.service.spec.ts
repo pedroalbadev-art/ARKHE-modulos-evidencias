@@ -1,44 +1,74 @@
 /**
- * empleado.service.ts - Servicio que comunica el front-end con la API REST.
- * Define métodos reutilizables para listar, crear, editar y eliminar empleados.
+ * empleado.service.spec.ts - Pruebas unitarias del servicio EmpleadoService.
+ * HttpTestingController simula la API: ninguna petición sale realmente a la red.
  */
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { EmpleadoService } from './empleado.service';
 import { Empleado } from '../models/empleado';
 
-@Injectable({
-  providedIn: 'root', // una sola instancia del servicio para toda la aplicación
-})
-export class EmpleadoService {
-  selectedEmpleado: Empleado; // empleado que se está escribiendo en el formulario
-  empleados: Empleado[]; // lista de empleados
+describe('EmpleadoService', () => {
+  let service: EmpleadoService;
+  let httpMock: HttpTestingController;
+  const URL_API = 'http://localhost:3000/api/empleados';
 
-  // Dirección de la API del back-end (solo lectura)
-  readonly URL_API = 'http://localhost:3000/api/empleados';
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [provideHttpClient(), provideHttpClientTesting()], // HTTP de prueba
+    });
+    service = TestBed.inject(EmpleadoService);
+    httpMock = TestBed.inject(HttpTestingController);
+  });
 
-  // Angular "inyecta" HttpClient, habilitado en app.config.ts con provideHttpClient()
-  constructor(private http: HttpClient) {
-    this.selectedEmpleado = new Empleado();
-    this.empleados = [];
-  }
+  // Al final de cada prueba se verifica que no quedaron peticiones sin revisar
+  afterEach(() => {
+    httpMock.verify();
+  });
 
-  // GET: obtener todos los empleados
-  getEmpleados() {
-    return this.http.get<Empleado[]>(this.URL_API);
-  }
+  it('se crea con un empleado vacío seleccionado', () => {
+    expect(service).toBeTruthy();
+    expect(service.selectedEmpleado.name).toBe('');
+  });
 
-  // POST: crear un empleado (se envían todos sus datos)
-  postEmpleado(empleado: Empleado) {
-    return this.http.post(this.URL_API, empleado);
-  }
+  it('getEmpleados hace un GET a la API y entrega la lista', () => {
+    const lista = [new Empleado('1', 'Santiago', 'Desarrollador', 'Bogotá', 3500000)];
+    let respuesta: Empleado[] = [];
 
-  // PUT: actualizar un empleado (el id va en la URL)
-  putEmpleado(empleado: Empleado) {
-    return this.http.put(`${this.URL_API}/${empleado._id}`, empleado);
-  }
+    service.getEmpleados().subscribe((datos) => (respuesta = datos));
 
-  // DELETE: eliminar un empleado (solo se necesita el id, no todo el empleado)
-  deleteEmpleado(_id: string) {
-    return this.http.delete(`${this.URL_API}/${_id}`);
-  }
-}
+    const peticion = httpMock.expectOne(URL_API); // debe existir una petición a esa URL
+    expect(peticion.request.method).toBe('GET');
+    peticion.flush(lista); // la API "responde" con la lista
+    expect(respuesta).toEqual(lista);
+  });
+
+  it('postEmpleado hace un POST con los datos del empleado', () => {
+    const nuevo = new Empleado('', 'Laura', 'Contadora', 'Cali', 2500000);
+
+    service.postEmpleado(nuevo).subscribe();
+
+    const peticion = httpMock.expectOne(URL_API);
+    expect(peticion.request.method).toBe('POST');
+    expect(peticion.request.body).toEqual(nuevo);
+    peticion.flush({ status: 'Empleado guardado' });
+  });
+
+  it('putEmpleado hace un PUT a la URL con el id del empleado', () => {
+    const empleado = new Empleado('abc123', 'Santiago', 'Líder técnico', 'Medellín', 4800000);
+
+    service.putEmpleado(empleado).subscribe();
+
+    const peticion = httpMock.expectOne(`${URL_API}/abc123`);
+    expect(peticion.request.method).toBe('PUT');
+    peticion.flush({ status: 'Empleado actualizado' });
+  });
+
+  it('deleteEmpleado hace un DELETE a la URL con el id', () => {
+    service.deleteEmpleado('abc123').subscribe();
+
+    const peticion = httpMock.expectOne(`${URL_API}/abc123`);
+    expect(peticion.request.method).toBe('DELETE');
+    peticion.flush({ status: 'Empleado eliminado' });
+  });
+});
